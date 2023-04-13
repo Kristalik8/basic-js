@@ -32,9 +32,9 @@ const chainMaker = {
     },
 
     finishChain() {
-        const chain = this.chain.join('~~');
+        const arr = this.chain.join('~~');
         this.chain = [];
-        return chain;
+        return arr;
     }
 };
 
