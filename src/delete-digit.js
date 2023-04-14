@@ -18,7 +18,6 @@ function deleteDigit(n) {
     let temptARR = arr.slice();
     temptARR.splice(i, 1);
     let b = Number(temptARR.join(''));
-    console.log(b)
     max = (max > b) ? max : b;
   }
   return max;
