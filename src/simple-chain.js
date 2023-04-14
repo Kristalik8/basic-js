@@ -36,7 +36,7 @@ const chainMaker = {
         this.chain = [];
         return arr;
     }
-};
+}
 
 module.exports = {
     chainMaker
