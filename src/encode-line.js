@@ -18,9 +18,11 @@ function encodeLine(str) {
   }
   for (let i = 0; i < arr.length; i++) {
     let count = 0;
+    let obj = {};
     while (arr[i] === arr[i + count]) {
       count++;
     }
+    obj[arr[i]] = count;
     i += count - 1;
     resultARR.push(count, arr[i])
   }
