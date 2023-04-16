@@ -20,14 +20,66 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(direction) {
+    this.direction = direction;
+    this.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    this.numAlph = {};
+    for (let i = 0; i < this.alphabet.length; i++) {
+      this.numAlph[this.alphabet[i]] = i;
+    }
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  encrypt(text, key) {
+    if(!(typeof text === 'string') || !(typeof key === 'string')){
+      throw Error('Incorrect arguments!');
+    }
+
+    text = text.toUpperCase();
+    key = key.toUpperCase();
+    let code = '';
+    for (let i = 0, j=0; i < text.length; i++, j++) {
+      if ((this.alphabet.includes(text[i]))) {
+
+        let textCode = this.numAlph[text[i]];
+        let keyCode = this.numAlph[key[j % key.length]];
+        code += this.alphabet[(textCode + keyCode) % this.alphabet.length];
+      } else {
+        code+=text[i];
+        j--;
+      }
+    }
+    if(this.direction === undefined || this.direction ) {
+      return code;
+    } else {
+      return  code.split('').reverse().join('');
+    }
   }
+
+  decrypt(text, key) {
+    if(!(typeof text === 'string') || !(typeof key === 'string')) {
+      throw Error('Incorrect arguments!');
+    }
+
+    text = text.toUpperCase();
+    key = key.toUpperCase();
+    let code = '';
+    for (let i = 0, j = 0; i < text.length; i++, j++) {
+      if ((this.alphabet.includes(text[i]))) {
+        let textCode = this.numAlph[text[i]];
+        let keyCode = this.numAlph[key[j % key.length]];
+        code += this.alphabet[(textCode - keyCode + this.alphabet.length) % this.alphabet.length];
+      } else {
+        code+=text[i];
+        j--;
+      }
+    }
+    if(this.direction === undefined || this.direction) {
+      return code
+    } else {
+      return  code.split('').reverse().join('');
+    }
+  }
+
 }
 
 module.exports = {
